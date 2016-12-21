@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Meta Properties -->
+    <meta charset="UTF-8">
+    <title>agar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADl0lEQVRYhcWXT4tcRRTFf1XVfyadzkyczkzDYNohDGFw4UJEXASxJasgYrIUURd+AvFLuBE/QEh2LiSrEMGVI1kK40aUgINMmhimO9hMMv8zXVUu7ns9r+vVm3TPBHLg0Q9e3Tqnbp+6dUt573mVKK2urvLs2vVJYnTykPl16dPudiYTMMG4OrAAXAKWkvfphHgTWAfWVpqtf4AesN/udtxpBZSAC8A7wCfA+wnxFGCCsYfANrAG3APurTRbD9rdzu5xBOqX+YtF32rAm8CXwA1gPkJahAPgAXALuANsFGWjSEAdeA/4Bln1mTGJQ/wH/AB8B3RiInQuRNL7dkL+4SnIARpIBr9GMphD6AENLAKfAx8A5TCgphVzukRNKYxSABx6z5ZzPLaDGMc54FPEoDdDT4QZmAauIIarhjNdLJVYNGVmtKaiFAYxxZRSNIxhuVxhzkRt0gC+ApZXmq3cirPvrYS8Ec5wqVRmRhvKSqEiDBqoKMWcNiyY6Oa6DFxDzB0VUEG225Uw8o1SmbNav3ALKKCsFOe1jmWiCnwEzBYJmAc+BmayAxrGUNcq6tYilJSioaNyLyOFLCdAA28B74YRs1pjokkvRpqJyF9RB5ZWmq3hetKXGpL66RFyY6gqPSH90cTndC5vZcRnOQFpua1kR7+m9USpz7GpqPQLZLZ/Ov888DrBvq8Sd/y4KBBfDwVo4DxSAYeo6aNCc1IUdBoj1SoVWQlHTWq8KFO82dkm4oF95FwfYsc77Cm6JQ/sxeN7ZLKgE+J+osymH5yHfe+L0vhCDLyn53Jnwx7SuIwISFWtIZkY4omzPD+BCAs89Y5dl4t8lPDkBPSB+8Cz7Ogt5+hPKMImcf8Ocqu3Ccd6ti9IBewCvybqDrJRPWvZsAP2vMNS6Gw88Nx7+tbycHAYG/IYuIssdohsrVxDupdFpO8bFvNN59h0jlljmFGaqlIYBQqF854BYtoNO8DGFe4APwK/tbudkdRkBWwnCpeAz5CKNXKi9K2lf+TTcXEA/Iz0h73wo/ni7MjhtwP8jRydi0g7Nm4jGsMW8BPwLfBnu9vJqQ8FeOAp8AfSUDaR0pk2P+PiAHgI3Aa+B/4KU5/iuLa8jpzfV5HmdBkp2RXyldMhW2sX2Wr3kb/zd6B/3G3pOAEgu2QK6WIWEF+k50b6VBLyzYR8HXH89su4GTlkVenKdPAte0880d1Qverb8Wn6jZeC/wHlRxL3oGkL4wAAAABJRU5ErkJggg==" />
+    <script src="/js/ads.js"></script>
+    <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+</head>
+<body>
+    <div id="gameAreaWrapper">
+        <div id="status"><span class="title">Leaderboard</span></div>
+        <div class="chatbox" id="chatbox">
+            <ul id="chatList" class="chat-list"></ul>
+            <input id="chatInput" type="text" class="chat-input" placeholder="Press enter to chat..." maxlength="50" />
+        </div>
+        <div id="mobile">
+           <input type="image" id="split" class="split" src="img/split.png" alt="splitBtn">
+           <input type="image" id="feed" class="feed" src="img/feed.png" alt="feedBtn">
+        </div>
+        <canvas tabindex="1" id="cvs" style="object-fit: fill !important"></canvas>
+    </div>
+    <div id="startMenuWrapper">
+        <div id="startMenu">
+            <p>agar</p>
+            <input type="text" tabindex="0" autofocus placeholder="Nick" id="playerNameInput" maxlength="25" />
+            
+            <select id="gamemode" onchange="if($(this).val()=='regular'){window.location.href='http://agart.herokuapp.com'}else{window.location.href='http://agart-beta.herokuapp.com'}" required="">
+                <option value="regular">Regular</option>
+                <option value="beta">Beta Testing</option>
+            </select>
+            
+            <b class="input-error">Nick must be alphanumeric characters only!</b>
+            
+            <button id="startButton">Play</button>
+            <button onclick="window.location.href = 'skins.html'" id="skinsButton">Skins</button>
+            <button id="settingsButton"></button>
+            <br />
+            <div id="settings">
+                    <label><input id="visBord" type="checkbox" checked>Show border</label>
+                    <label><input id="showMass" type="checkbox" checked>Show mass</label>
+                    <label><input id="continuity" type="checkbox" checked>Continuity</label>
+                    <label><input id="roundFood" type="checkbox" checked>Rounded food</label>
+            </div>
+            <div id="instructions">
+                <hr>
+                <ul>
+                    <li>Move your mouse to control your cell.</li>
+                    <li>Eat other cells to grow bigger.</li>
+                    <li><small style="font-size:9px !important">user id: <span id="userid" style="font-size:9px !important"></span></small></li>
+                </ul>
+                <hr>
+                <b><ul>
+                    <li>Special leaderboard name colours:</li>
+                    <li style="color:#FFCB52">Gold = Programmer of agart</li>
+                    <li style="color:#44F02E">Green = Game Helper</li>
+                </ul></b>
+                </hr>
+            </div>
+            <!--<script type='text/javascript' src='//clksite.com/adServe/banners?tid=126242_214976_0'></script>-->
+            <script type='text/javascript' src='//clksite.com/adServe/banners?tid=126242_214976_3&type=shadowbox&size=800x440'></script>
+            <script type='text/javascript' src='//eclkmpsa.com/adServe/banners?tid=126242_214976_4&tagid=2'></script>
+        </div>
+    </div>
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    
+    if(window.location.host.split('.')[0] == 'agart'){
+        if (document.cookie.indexOf('uid') >= 0) {
+            $('#userid').text(getCookie('uid'));
+            if(getCookie('uid') == 'u86252'){
+                //Ban list: Tom
+                $('*').hide();
+                window.location.href = "http://sebweb.co.uk/cena/cena.mp3";
+            }
+        }
+        else {
+            var rand = Math.floor((Math.random() * 99999) + 10000);
+            document.cookie = "uid=u"+rand+"; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+            $('#userid').text(getCookie('uid'));
+        }
+    }
+    
+    if( window.canRunAds === undefined ){
+        alert('Please disable your adblocker for agart, so we can continue providing agart for free.')
+    }
+    
+    //function doshare(){
+    //    alert('IMPORTANT: Please read before sharing! In order to get the 250 mass offer, someone who has NEVER player agart before needs to click on the link. If they have played agart before, it will not count towards the bonus. The 250 mass bonus will only work on \'Regular\' gamemode.');
+    //    $('#sharebtn').fadeOut();
+    //    
+    //    $('#s_email').attr("href","mailto:example@example.com?&subject=Check out this fun game I found!&body=Here's%20the%20link%3A%20https%3A//agart.herokuapp.com%23"+getCookie('uid')+"%20.");
+    //    $('#s_fb').attr("href","https://www.facebook.com/sharer/sharer.php?u=https%3A//agart.herokuapp.com%23"+getCookie('uid'));
+    //    $('#s_tw').attr("href","https://twitter.com/home?status=Challenge%20me%20to%20this%20fun%20online%20game%20I%20found!%20https%3A//agart.herokuapp.com%23"+getCookie('uid'));
+    //    
+    //    $('#shareicns').fadeIn();
+    //}
+    
+    
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
